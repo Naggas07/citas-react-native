@@ -1,8 +1,47 @@
 import React, {useState} from 'react';
-import {Text, StyleSheet, View, TextInput, Button} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TextInput,
+  Button,
+  DatePickerAndroid,
+  TimePickerAndroid,
+} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const Formulario = () => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+
+  // DatePickerAndroid
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = date => {
+    console.warn('A date has been picked: ', date);
+    hideDatePicker();
+  };
+
+  // TimePickerAndroid
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const handleConfirmTime = date => {
+    console.warn('A Time has been picked: ', date);
+    hideTimePicker();
+  };
+
   return (
     <>
       <View style={styles.formulario}>
@@ -26,6 +65,32 @@ const Formulario = () => {
             style={styles.input}
             onChangeText={texto => console.log(texto)}
             keyboardType="numeric"
+          />
+        </View>
+        <View>
+          <Button title="Show Date Picker" onPress={showDatePicker} />
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+            locale="es_ES"
+            headerTextIOS="Elige una fecha"
+            cancelTextIOS="Cancelar"
+            confirmTextIOS="Confirmar"
+          />
+        </View>
+        <View>
+          <Button title="Show time Picker" onPress={showTimePicker} />
+          <DateTimePickerModal
+            isVisible={isTimePickerVisible}
+            mode="time"
+            onConfirm={handleConfirmTime}
+            onCancel={hideTimePicker}
+            locale="es_ES"
+            headerTextIOS="Elige una hora"
+            cancelTextIOS="Cancelar"
+            confirmTextIOS="Confirmar"
           />
         </View>
         <View>
