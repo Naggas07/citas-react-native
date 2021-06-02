@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Text, StyleSheet, View, TextInput} from 'react-native';
+import {Text, StyleSheet, View, TextInput, Button} from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const Formulario = () => {
   return (
@@ -25,6 +26,14 @@ const Formulario = () => {
             style={styles.input}
             onChangeText={texto => console.log(texto)}
             keyboardType="numeric"
+          />
+        </View>
+        <View>
+          <Text style={styles.label}>Sintomas:</Text>
+          <TextInput
+            multiline
+            style={styles.input}
+            onChangeText={texto => console.log(texto)}
           />
         </View>
       </View>
