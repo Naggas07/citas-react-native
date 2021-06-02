@@ -7,10 +7,14 @@ import {
   Button,
   DatePickerAndroid,
   TimePickerAndroid,
+  Settings,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const Formulario = () => {
+  const [hora, setHora] = useState('');
+  const [fecha, setFecha] = useState('');
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
@@ -24,7 +28,9 @@ const Formulario = () => {
   };
 
   const handleConfirm = date => {
-    console.warn('A date has been picked: ', date);
+    const options = {year: 'numeric', month: 'long', day: '2-digit'};
+    const newDate = date.toLocaleDateString('es-ES', options);
+    setFecha(newDate);
     hideDatePicker();
   };
 
@@ -37,8 +43,10 @@ const Formulario = () => {
     setTimePickerVisibility(false);
   };
 
-  const handleConfirmTime = date => {
-    console.warn('A Time has been picked: ', date);
+  const handleConfirmTime = time => {
+    const options = {hour: 'numeric', minute: '2-digit'};
+    const newTime = time.toLocaleString('en-US', options);
+    setHora(newTime);
     hideTimePicker();
   };
 
@@ -68,6 +76,7 @@ const Formulario = () => {
           />
         </View>
         <View>
+          <Text style={styles.label}>Elige una fecha</Text>
           <Button title="Show Date Picker" onPress={showDatePicker} />
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
@@ -79,8 +88,10 @@ const Formulario = () => {
             cancelTextIOS="Cancelar"
             confirmTextIOS="Confirmar"
           />
+          <Text>{fecha}</Text>
         </View>
         <View>
+          <Text style={styles.label}>Elige una hora</Text>
           <Button title="Show time Picker" onPress={showTimePicker} />
           <DateTimePickerModal
             isVisible={isTimePickerVisible}
@@ -92,7 +103,9 @@ const Formulario = () => {
             cancelTextIOS="Cancelar"
             confirmTextIOS="Confirmar"
           />
+          <Text>{hora}</Text>
         </View>
+
         <View>
           <Text style={styles.label}>Sintomas:</Text>
           <TextInput
